@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-const IP_ADDRESS = '0.0.0.0' // TODO: fill this in through config
+const IP_ADDRESS = '192.168.1.18' // TODO: fill this in through config
 const PORT = 5000
 const ROOT_URL = `http://${IP_ADDRESS}:${PORT}`
 
@@ -28,7 +28,11 @@ class App extends React.Component {
       },
       body: JSON.stringify({text: this.state.searchString })
     })
-    .then(response => console.log(response.json()));
+    .then(response => response.json())
+    .then(({results}) => {
+      console.log('found this', results);
+      this.setState({ results });
+    });
   }
 
   render() {
@@ -42,10 +46,38 @@ class App extends React.Component {
             </label>
             <input type="submit" value="Submit" />
           </form>
+          <main>
+          { this.state.results.length > 0 &&
+            (
+              <div id="results-table">
+                {this.state.results.map(r => <TableRow artist={r.artist} album={r.album} song={r.song} />)}
+              </div>
+            )
+          }
+        </main>
         </header>
       </div>
     );
   }
+}
+
+function TableRow(props) {
+  const {
+    artist,
+    album,
+    song,
+  } = props;
+  return (
+    <div className="results-row">
+      <div className="row-head">
+        <span>{artist}</span>
+        <span>{song}</span>
+      </div>
+      <div className="row-song">
+        <span>{album}</span>
+      </div>
+    </div>
+  )
 }
 
 export default App;

@@ -1,3 +1,7 @@
+body {
+  background-color: #282c34;
+}
+
 .App {
   text-align: center;
 }
@@ -14,14 +18,33 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding-top: 15px;
+}
+
+.App-header > main {
+  display: grid;
+  grid-template-rows: 50px;
+  grid-template-columns: 1fr;
+  width: 90vw;
+  max-width: 700px;
+  text-align: left;
+  margin-top: 20px;
+}
+
+main .row-head {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+}
+
+main .results-row {
+  margin-bottom: 10px;
+  border-bottom: #61dafb solid 2px;
 }
 
 .App-link {
